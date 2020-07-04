@@ -28,6 +28,7 @@ return its bottom-up level order traversal as:
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+/*
 class Solution {
 public:
     int find_level(TreeNode* root)
@@ -64,6 +65,57 @@ public:
             add_level(root,i,temp,1);
             res.push_back(temp);
         }
+        return res;
+    }
+};
+*/
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+   
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+           
+        vector<vector<int>> res;
+        if(root == NULL)
+            return res;
+        
+        queue<TreeNode*> Q;
+        
+        Q.push(root);
+        
+        while(!Q.empty())
+        {
+            int node_count = Q.size();
+            vector<int> aug;           
+            while(node_count > 0)
+            {
+                
+                TreeNode* temp = Q.front();
+                Q.pop();
+                aug.push_back(temp->val);
+                if(temp->left)
+                    Q.push(temp->left);
+            
+                if(temp->right)
+                    Q.push(temp->right);
+                
+                node_count--;
+            }
+            res.push_back(aug);
+        }
+        reverse(res.begin(),res.end());
         return res;
     }
 };
