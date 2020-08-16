@@ -33,11 +33,14 @@ public:
         
         while(l < r)
         {
+            //finding mid of the array
             int m = l + (r - l) / 2;
             
+            //if next element is smaller than mid then it's minimum in the array and return that element
             if(nums[m+1] < nums[m])
                 return nums[m+1];
             
+            //if element at mid is smaller than right then simply change right index else left index 
             else if(nums[m] < nums[r])
                 r = m;
             else
