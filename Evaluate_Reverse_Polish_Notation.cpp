@@ -51,45 +51,51 @@ public:
         int res = 0;
         
         stack<int> opnd;
-        
+        string oper = "+-*/";
         int n = tokens.size();
-        if(n == 1)
-            return string_to_int(tokens[0]);
         
         for(int i = 0; i < n; i++)
         {
-            string value = tokens[i];
-            //cout<<value<<endl;
-            if(!value.compare("+") || !value.compare("-") || !value.compare("*") || 
-               !value.compare("/"))
+            size_t found = oper.find(tokens[i]);
+
+            if(found == string::npos)
+            {
+                opnd.push(string_to_int(tokens[i]));
+                continue;
+            }
+            else
             {
                 int val1 = opnd.top();
                 opnd.pop();
                 int val2 = opnd.top();
                 opnd.pop();
                 
-                if(!value.compare("+"))
-                    res = (val1 + val2);
+                switch(found)
+                {
+                    case 0 :
+                        opnd.push(val1 + val2);
+                        break;
                 
-                else if(!value.compare("*"))
-                    res = (val1 * val2);
+                    case 1 :
+                        opnd.push(val2 - val1);
+                        break;
                 
-                else if(!value.compare("-"))
-                    res = (val2 - val1);
+                    case 2 :
+                        opnd.push(val1 * val2);
+                        break;
                 
-                else
-                    res = (val2 / val1);
+                    default:
+                        opnd.push(val2 / val1);
+                        break;
                 
-                opnd.push(res);
+                }
                 
             }
-            else
-            {
-                opnd.push(string_to_int(value));
-            }
+            
         }
-        return res;
-        
+        res = opnd.top();
+        opnd.pop();
+        return res;    
         
     }
 };
