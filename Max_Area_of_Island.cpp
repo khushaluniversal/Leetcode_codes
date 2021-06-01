@@ -26,11 +26,13 @@ class Solution {
 public:
     int dfs(vector<vector<int>>& grid, int row, int col)
     {
+        //retun condition if out of bound for row and col and no land
         if((row < 0) || (row >= grid.size()) || (col < 0) || (col >= grid[row].size()) || (grid[row][col] == 0))
             return 0;
         
         grid[row][col] = 0;
         int count = 1;
+        //calling horizontal and vertical direction
         count += dfs(grid,row+1,col);
         count += dfs(grid, row-1,col);
         count += dfs(grid,row,col+1);
@@ -43,6 +45,7 @@ public:
         {
             for(int j = 0; j < grid[i].size(); j++)
             {
+                //if current cell is 1 then start dfs 
                 if(grid[i][j])
                     max_area = max(max_area,dfs(grid,i,j));
             }
