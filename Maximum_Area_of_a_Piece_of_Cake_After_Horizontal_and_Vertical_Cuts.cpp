@@ -41,20 +41,25 @@ public:
     int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
         int maxh,maxv;
         
+        //sort both horizontal and vertical cuts
         sort(horizontalCuts.begin(),horizontalCuts.end());
         sort(verticalCuts.begin(),verticalCuts.end());
         
+        //find maximum of both horizontal and vertical cuts
         maxh = max(horizontalCuts[0],h-horizontalCuts.back());
         maxv = max(verticalCuts[0],w-verticalCuts.back());
         
+        //find max horizontal distance
         for(int i = 1; i < horizontalCuts.size(); i++)
         {
             maxh = max(maxh,horizontalCuts[i]-horizontalCuts[i-1]);
         }
+        //find max vertical distance
         for(int i = 1; i < verticalCuts.size(); i++)
         {
             maxv = max(maxv,verticalCuts[i]-verticalCuts[i-1]);
         }
+        //find area and return it
         unsigned long long area = ((long)maxh * maxv) % 1000000007;
         return (int)area; 
     }
