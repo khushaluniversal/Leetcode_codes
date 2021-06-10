@@ -35,15 +35,12 @@ public:
     bool book(int start, int end) {
         for(auto& it:mp)
         {
-            //if(((start >= it.first) && (start < it.second)) ||
-              // ((end >= it.first) && (end <= it.second)))
+            //checking overlapping region
             if((it.first < end) && (start < it.second)) 
-            {
-                //mp.insert({start,end});
                 return false;
-            }
+            
         }
-        //cout<<start<<" "<<end<<endl;
+        //insert interval into map
         mp.insert({start,end});
         return true;
     }
